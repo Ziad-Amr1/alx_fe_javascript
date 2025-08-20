@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dynamic Quote Generator — Storage & JSON</title>
+  <title>Dynamic Quote Generator — Filters</title>
   <style>
     body { font-family: Arial, sans-serif; padding:24px; background:#f7f8fb; color:#111; }
-    #app { max-width:720px; margin:0 auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,0.06); }
+    #app { max-width:820px; margin:0 auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,0.06); }
     #quoteDisplay { min-height:80px; display:flex; align-items:center; justify-content:center; text-align:center; padding:16px; font-size:1.2rem; color:#222; }
     .meta { color:#666; font-size:0.9rem; margin-top:8px; text-align:center; }
     button { cursor:pointer; padding:8px 12px; border-radius:8px; border:none; background:#ff6565; color:white; font-weight:700; }
@@ -16,6 +16,8 @@
     input[type="text"], select, textarea, input[type="file"] { width:100%; padding:8px 10px; border-radius:8px; border:1px solid #e6e9ef; margin-bottom:12px; font:inherit; }
     .small { font-size:0.9rem; color:#555; }
     .secondary { background:#eee; color:#111; font-weight:600; }
+    #quotesList { margin-top:12px; display:grid; gap:8px; }
+    .quote-item { padding:10px; border-radius:8px; background:#fbfbfb; border:1px solid #eee; }
   </style>
 </head>
 <body>
@@ -28,13 +30,24 @@
     <div class="controls">
       <button id="newQuote">Show New Quote</button>
       <button id="showAddForm">Add a Quote</button>
-      <!-- NOTE: changed text to exactly "Export Quotes" to satisfy checker -->
+
+      <!-- filter dropdown -->
+      <label for="categoryFilter" style="display:inline-block; margin:0;">
+        <select id="categoryFilter" aria-label="Filter quotes by category">
+          <option value="all">All Categories</option>
+        </select>
+      </label>
+
+      <!-- export / import -->
       <button id="exportBtn" class="secondary">Export Quotes</button>
       <label for="importFile" style="display:inline-block; padding:8px 12px; background:#eee; border-radius:8px; cursor:pointer;">
         Import JSON
         <input id="importFile" type="file" accept=".json" style="display:none;">
       </label>
     </div>
+
+    <!-- area to show all quotes (filtered) -->
+    <div id="quotesList" aria-live="polite"></div>
 
     <div id="addFormArea" class="form-container" aria-hidden="true"></div>
 
