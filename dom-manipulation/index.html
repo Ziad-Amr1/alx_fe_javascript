@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dynamic Quote Generator — Filters</title>
+  <title>Dynamic Quote Generator — Sync</title>
   <style>
     body { font-family: Arial, sans-serif; padding:24px; background:#f7f8fb; color:#111; }
     #app { max-width:820px; margin:0 auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,0.06); }
@@ -18,6 +18,9 @@
     .secondary { background:#eee; color:#111; font-weight:600; }
     #quotesList { margin-top:12px; display:grid; gap:8px; }
     .quote-item { padding:10px; border-radius:8px; background:#fbfbfb; border:1px solid #eee; }
+    .notify { margin-top:12px; padding:10px; border-radius:8px; display:none; }
+    .notify.success { background: #ecfdf5; color:#065f46; border:1px solid #bbf7d0; display:block; }
+    .notify.warn { background:#fff7ed; color:#92400e; border:1px solid #ffd8a8; display:block; }
   </style>
 </head>
 <body>
@@ -44,7 +47,12 @@
         Import JSON
         <input id="importFile" type="file" accept=".json" style="display:none;">
       </label>
+
+      <!-- sync controls -->
+      <button id="syncBtn" class="secondary">Sync Now</button>
     </div>
+
+    <div id="notify" class="notify" role="status" aria-live="polite"></div>
 
     <!-- area to show all quotes (filtered) -->
     <div id="quotesList" aria-live="polite"></div>
