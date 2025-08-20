@@ -3,36 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dynamic Quote Generator</title>
+  <title>Dynamic Quote Generator — Storage & JSON</title>
   <style>
-    /* بسيط لتنسيق العرض */
-    body { font-family: Arial, sans-serif; padding: 24px; background:#f7f8fb; color:#111; }
+    body { font-family: Arial, sans-serif; padding:24px; background:#f7f8fb; color:#111; }
     #app { max-width:720px; margin:0 auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,0.06); }
     #quoteDisplay { min-height:80px; display:flex; align-items:center; justify-content:center; text-align:center; padding:16px; font-size:1.2rem; color:#222; }
     .meta { color:#666; font-size:0.9rem; margin-top:8px; text-align:center; }
-    button { cursor:pointer; padding:10px 14px; border-radius:8px; border:none; background:#ff6565; color:white; font-weight:700; }
-    .controls { display:flex; gap:12px; justify-content:center; margin-top:16px; }
+    button { cursor:pointer; padding:8px 12px; border-radius:8px; border:none; background:#ff6565; color:white; font-weight:700; }
+    .controls { display:flex; gap:12px; justify-content:center; margin-top:12px; flex-wrap:wrap; }
     .form-container { margin-top:18px; border-top:1px dashed #e6e9ef; padding-top:16px; }
     label{ display:block; margin-bottom:6px; font-weight:600; }
-    input[type="text"] , select, textarea { width:100%; padding:8px 10px; border-radius:8px; border:1px solid #e6e9ef; margin-bottom:12px; font:inherit; }
+    input[type="text"], select, textarea, input[type="file"] { width:100%; padding:8px 10px; border-radius:8px; border:1px solid #e6e9ef; margin-bottom:12px; font:inherit; }
+    .small { font-size:0.9rem; color:#555; }
+    .secondary { background:#eee; color:#111; font-weight:600; }
   </style>
 </head>
 <body>
   <div id="app">
     <h1>Dynamic Quote Generator</h1>
 
-    <div id="quoteDisplay" aria-live="polite">
-      <!-- الاقتباس سيُضاف هنا تلقائياً بواسطة script.js -->
-    </div>
+    <div id="quoteDisplay" aria-live="polite"></div>
     <div class="meta" id="quoteMeta"></div>
 
     <div class="controls">
       <button id="newQuote">Show New Quote</button>
       <button id="showAddForm">Add a Quote</button>
+      <button id="exportBtn" class="secondary">Export JSON</button>
+      <label for="importFile" style="display:inline-block; padding:8px 12px; background:#eee; border-radius:8px; cursor:pointer;">
+        Import JSON
+        <input id="importFile" type="file" accept=".json" style="display:none;">
+      </label>
     </div>
 
-    <!-- حاوية سيملأها السكريبت فورماً لإضافة اقتباسات -->
     <div id="addFormArea" class="form-container" aria-hidden="true"></div>
+
+    <p class="small">Tip: exported file is a JSON array of objects: [{ "text": "...", "category": "..." }, ...]</p>
   </div>
 
   <script src="script.js"></script>
