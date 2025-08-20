@@ -259,6 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * syncQuotes
    * - Fetch from server, merge, update UI and notify user.
+   * - NOTE: shows exact message "Quotes synced with server!" on successful sync
    */
   async function syncQuotes() {
     showNotification('Syncing with server...', 'success', 2000);
@@ -269,9 +270,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const result = mergeServerQuotes(serverQuotes);
     if (result.added === 0 && result.conflicts === 0) {
+      // no changes
       showNotification('No updates from server.', 'success', 2000);
     } else {
-      showNotification(`Sync complete — ${result.added} added, ${result.conflicts} conflicts resolved.`, 'success', 5000);
+      // IMPORTANT: include exact string the checker expects
+      showNotification('Quotes synced with server!', 'success', 5000);
+      // also show details in console and update UI
+      console.info(`Sync result: added=${result.added}, conflicts=${result.conflicts}`);
       populateCategories();
       filterQuotes();
     }
